@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>X402 PAY – AI Payment Infrastructure</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #ffffff, #e9f3ff);
+      color: #1a1a1a;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      background: radial-gradient(circle at center, #3bb4ff, #0066ff);
+      border-radius: 50%;
+      box-shadow: 0 6px 20px rgba(0,102,255,0.3);
+      position: relative;
+    }
+
+    .logo::after {
+      content: '';
+      position: absolute;
+      top: 20%;
+      left: 20%;
+      width: 60%;
+      height: 60%;
+      background: white;
+      border-radius: 50%;
+      box-shadow: inset 0 0 10px rgba(0,102,255,0.2);
+    }
+
+    header h1 {
+      font-weight: 700;
+      color: #0066ff;
+      letter-spacing: 1px;
+      margin-left: 15px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+
+    nav a {
+      margin-left: 20px;
+      color: #0066ff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      opacity: 0.7;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 20px 100px;
+      background: linear-gradient(180deg, #e9f3ff, #ffffff);
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      color: #0044cc;
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      color: #555;
+      max-width: 600px;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+    }
+
+    .btn-primary {
+      text-decoration: none;
+      background: linear-gradient(90deg, #3bb4ff, #0066ff);
+      color: #fff;
+      padding: 14px 34px;
+      border-radius: 25px;
+      font-weight: 600;
+      box-shadow: 0 5px 20px rgba(0,102,255,0.3);
+      transition: 0.3s;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.05);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(3px);
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .modal-content button {
+      background: linear-gradient(90deg, #3bb4ff, #0066ff);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .modal-content button:hover {
+      opacity: 0.8;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    .thankyou {
+      display: none;
+      font-weight: 600;
+      color: #0066ff;
+    }
+
+    .contract-section {
+      background: #fff;
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .contract-section h3 {
+      font-size: 2rem;
+      color: #0044cc;
+      margin-bottom: 20px;
+    }
+
+    .contract {
+      margin: 0 auto 30px auto;
+      padding: 20px;
+      border-left: 4px solid #0066ff;
+      background: rgba(0,102,255,0.05);
+      border-radius: 8px;
+      color: #0066ff;
+      font-weight: 600;
+      max-width: 400px;
+    }
+
+    .x-community {
+      margin-top: 10px;
+    }
+
+    .x-community a {
+      text-decoration: none;
+      background: linear-gradient(90deg, #000000, #1DA1F2);
+      color: #fff;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-weight: 600;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: 0.3s;
+      display: inline-block;
+    }
+
+    .x-community a:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    .how-it-works {
+      background: #fff;
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    .how-it-works h3 {
+      font-size: 2rem;
+      color: #0044cc;
+      margin-bottom: 60px;
+    }
+
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .step {
+      flex: 1 1 280px;
+      background: rgba(240,247,255,0.8);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,102,255,0.1);
+      transition: 0.3s;
+    }
+
+    .step:hover {
+      transform: translateY(-5px);
+    }
+
+    .step h4 {
+      color: #0066ff;
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    .step p {
+      color: #444;
+    }
+
+    footer {
+      text-align: center;
+      padding: 60px 20px;
+      color: #777;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <div class="logo"></div>
+      <h1>X402 PAY</h1>
+    </div>
+    <nav>
+      <a href="#how">How It Works</a>
+      <a href="#ecosystem">Ecosystem</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Powering Payments Between AI Agents</h2>
+    <p>X402 PAY is a next-generation payment protocol that enables seamless, autonomous transactions between intelligent systems, devices, and humans.</p>
+    <button class="btn-primary" id="openModal">Connect Your AI Agent</button>
+  </section>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h3>Connect Your AI Agent</h3>
+      <p>Enter your email to get early access:</p>
+      <input type="email" id="emailInput" placeholder="Enter your email" required />
+      <button id="submitEmail">Submit</button>
+      <p class="thankyou">Thank you! We'll be in touch soon.</p>
+    </div>
+  </div>
+  <div class="close" id="closeModal">&times;</div>
+
+  <section class="contract-section">
+    <h3>Contract Address</h3>
+    <div class="contract">Contract Address: <b>TBA</b></div>
+    <div class="x-community">
+      <a href="https://x.com" target="_blank">X Community</a>
+    </div>
+  </section>
+
+  <section id="how" class="how-it-works">
+    <h3>How It Works</h3>
+    <div class="steps">
+      <div class="step">
+        <h4>1. Connect Agents</h4>
+        <p>Autonomous agents link to the X402 network through secure smart contracts.</p>
+      </div>
+      <div class="step">
+        <h4>2. Verify Transactions</h4>
+        <p>Each interaction is verified via decentralized consensus, ensuring trust and integrity.</p>
+      </div>
+      <div class="step">
+        <h4>3. Instant Settlement</h4>
+        <p>Transfers are executed instantly with adaptive fee algorithms optimized for AI ecosystems.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 X402 PAY – AI Payment Infrastructure. All rights reserved.
+  </footer>
+
+  <script>
+    const modal = document.getElementById('modal');
+    const openModal = document.getElementById('openModal');
+    const closeModal = document.getElementById('closeModal');
+    const submitEmail = document.getElementById('submitEmail');
+    const emailInput = document.getElementById('emailInput');
+    const thankyou = document.querySelector('.thankyou');
+
+    openModal.addEventListener('click', () => {
+      modal.style.display = 'flex';
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+      thankyou.style.display = 'none';
+      emailInput.value = '';
+    });
+
+    submitEmail.addEventListener('click', () => {
+      if (emailInput.value.trim() !== '') {
+        thankyou.style.display = 'block';
+        emailInput.style.display = 'none';
+        submitEmail.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
